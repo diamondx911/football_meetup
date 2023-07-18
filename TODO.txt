@@ -1,0 +1,7 @@
+
+- fix the date format in the same page
+- fix the font size and weight and color on the same page 
+- make the map take all the width as the text 
+- check validator for creating account
+-need to add mail notification when someone cancel joining to the organizer
+-

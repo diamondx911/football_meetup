@@ -1,0 +1,191 @@
+<div class="wrapper-map">
+
+  <div id="map">
+  
+</div>
+  <%- include ("./partials/messages") %>
+</div>
+
+
+<script>
+
+
+document.addEventListener('DOMContentLoaded', function() {
+            var titleDiv = document.querySelector('.alert');
+            setTimeout(function() {
+                titleDiv.style.display = 'none';
+            }, 1000000);
+        });
+
+  // Create a map object
+const events = <%- JSON.stringify(event) %>
+
+var map = L.map('map', {
+    attributionControl: false 
+}).setView([33.577317, -7.623733], 12);
+
+var icon = new L.Icon({
+  iconUrl: 'football.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 20]
+});
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+
+
+for (let i = 0; i < events.length; i++) {
+
+  logged = <%- JSON.stringify(logged) %>;
+  const coordinate = [events[i].coordinates.latitude, events[i].coordinates.longitude];
+  const marker = L.marker(coordinate, {icon:icon}).addTo(map);
+  const date = new Date(events[i].dates[0].date);
+  const formattedDate = date.toLocaleDateString();
+  console.log(events[i].invitedNames)
+  const index = events[i].invitedNames.indexOf(<% user._id %>);
+  const idExists = index !== -1;
+
+  let popupContent = 
+  '<div class="card-house">' +
+    '<div class="vitals-title">organizer</div>' +
+
+    '<div class="container-organizer">' +
+      events[i].organizer +
+    '</div>' +
+    '<div class="vitals-title">date and TIME</div>' +
+    '<div class="date-time">' +
+      
+      '<div class="date-container">' +
+        formattedDate+
+      '</div>' +
+      '<div class="date-container">' +
+      events[i].dates[0].time +
+      '</div>' +
+    '</div>' +
+    '<div class="vitals-title">player needed/joined</div>' +
+    '<div class="players">';
+      if (events[i].invitedNames) {
+        for (let j = 0; j < events[i].invitedNames.length; j++) {
+          popupContent += '<img class="icon" src="/player_full.svg" style="width:30px;height:30px;" />';
+        }
+        for (let j = 0; j < (events[i].numberPlayer - events[i].invitedNames.length); j++) {
+          popupContent += '<img class="icon" src="/player_full.svg" style="width:30px;height:30px;opacity:0.5;" />';
+        }
+      }else{
+        for (let j = 0; j < (events[i].numberPlayer); j++) {
+          popupContent += '<img class="icon" src="/player_full.svg" style="width:30px;height:30px;opacity:0.5;" />';
+      }
+    }
+    '</div>' +
+    '</div>' ;
+
+
+    function checkIfIdExists(id) {
+  for (let j = 0; j < events[i].invitedNames.length; j++) {
+    if (events[i].invitedNames[j]._id === id) {
+      return true; // ID found
+    }
+  }
+  return false; // ID not found
+}
+
+console.log(checkIfIdExists(<%- JSON.stringify(user._id)%>));
+
+  if (logged === true) {
+    if(events[i].organizer.email != '<%= user.email %>'){
+      if(checkIfIdExists(<% user._id %>)){
+        popupContent += '</div>' +
+                        '<div class="vitals-title" style="margin-top:15px;">Already joined'+
+                        '</div>'+
+                        '</div>';
+      }else{
+        popupContent += '</div>' +
+                        '<form action="/join" method="POST">'+
+                        '<button name="test" type="submit" value=' + events[i]._id  +  ">Click to join</button>"+
+                        '</form>' +
+                        '</div>';
+      }
+
+
+    }else{
+        
+        popupContent += '</div>' +
+        '<div class="vitals-title" style="margin-top:15px;">You are the organizer</div>' +
+                        '</div>';
+    
+    }
+
+  }else{
+        
+        popupContent += '</div>' +
+        '<div class="vitals-title" style="margin-top:15px;">Login to join/announce a game</div>' +
+                        '</div>';
+    
+    }
+
+
+ 
+
+
+
+
+
+  function bebe(button) {
+      console.log(button.id);
+      name = button.id;
+      const data = {name};
+      fetch("/join", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log("Server response:", result);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+
+    }
+
+
+  marker.bindPopup(popupContent);
+      marker.on('click', function (e) {
+      var popup = e.target.getPopup();
+      if (popup.isOpen()) {
+        
+      } else {
+        popup.openOn(map);
+      }
+    });
+
+
+}
+
+
+
+map.on('click', function () {
+    // Close all popups when clicking anywhere on the map
+    map.closePopup();
+    
+  });
+
+
+function handleZoomEnd() {
+  var zoomLevel = map.getZoom();
+  //console.log('Zoom Level:', zoomLevel);
+  var center = map.getCenter();
+  var latitude = center.lat;
+  var longitude = center.lng;
+  console.log('Latitude:', latitude);
+}
+
+map.on('zoomend', handleZoomEnd);
+
+</script>
+

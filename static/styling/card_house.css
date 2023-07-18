@@ -1,0 +1,134 @@
+
+
+.card-house{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+        --padding: 1rem;
+    background: white;
+    font-size: large;
+    border-radius: .25rem;
+    overflow: hidden;
+}
+  
+  .card-header {
+    font-size: 1.5rem;
+    padding: var(--padding);
+    padding-bottom: 0;
+    margin-bottom: .5rem;
+  }
+  
+  .card-header.card-image {
+    padding: 0;
+    
+  }
+  
+  .card-header.card-image > img {
+    display: block;
+    max-height: 200px;
+    object-fit: cover;
+    object-position: center;
+    transition: 200ms transform ease-in-out;
+  }
+  
+  .card:hover > .card-header.card-image > img {
+    transform: scale(1.025);
+  }
+  
+  .card-body {
+    font-size: .9rem;
+    padding: 0 var(--padding);
+    overflow: auto;
+  }
+  
+  .card-footer {
+    margin-top: 5px;
+    padding: var(--padding);
+    padding-top: 0;
+  }
+  
+  .btn {
+    --color: hsl(200, 50%, 50%);
+    background: var(--color);
+    color: white;
+    border: none;
+    font-size: 1rem;
+    padding: .5em .75em;
+    border-radius: .25em;
+    cursor: pointer;
+  }
+  
+  .btn:hover, .btn:focus {
+    background: hsl(200, 50%, 60%);
+  }
+  
+  .btn.btn-outline {
+    background: none;
+    border: 1px solid var(--color);
+    color: var(--color);
+  }
+  
+  .btn.btn-outline:hover, .btn.btn-outline:focus {
+    background: hsl(200, 50%, 90%);
+  }
+  
+  .btn + .btn {
+    margin-left: .25rem;
+  }
+
+  .players {
+   
+    flex-direction: row;
+    align-items: center;
+    color: #4e4e4e;
+    font-size: smaller;
+    
+  }
+
+  .text {
+    margin-left: 10px;
+  }
+
+  .card-body-address{
+    color: #0084d0;
+    font-size: large;
+  }
+
+  .card-body-price{
+    font-size:20px;
+    margin-bottom: 7px;
+
+  }
+
+
+  .date-time{
+    display: flex;
+    gap: 20px;
+
+  }
+
+  button{
+    -webkit-font-smoothing: antialiased;
+    -webkit-box-align: center;
+    align-items: center;
+    border: 1px solid rgb(0 77 161);
+    border-radius: 0px;
+    box-sizing: border-box;
+    display: inline-flex;
+    font-family: "Source Sans Pro", Helvetica, Arial, Geneva, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 0px 24px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition-duration: 0.3s;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+    background-color: rgb(24, 118, 219);
+    color: rgb(255, 255, 255);
+    height: 40px;
+  }

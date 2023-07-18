@@ -1,0 +1,36 @@
+
+<div class="wrapper-map">
+    <div id="map">  </div>
+    <div id="error" style="display: none;">You didn't drag the marker to the event's location</div>
+        <div class="profile-container">
+        <form class="form" id='form' action="/create_event" method="POST" onsubmit="return validateForm();">
+          <h1>Create a soccer event</h1>
+              <div class="input-group">
+                  <p>Number of player needed</p>
+                  <select name="players" id="players" class="form-select" aria-label="Default select example" value="1">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  </select>
+                  <p>date :</p>
+                  <input type="date" id="date" name="trip_date">
+                  <label for="event-time">Event Time:</label>
+                  <input type="time" id="time" name="Time">
+                  <input name='user' id='user' placeholder="Enter your id" value= "<%= user.id %>" style="display: none;"/>    
+                  <input name='latitude' id='latitude' placeholder="Enter your name" value="2" style="display: none;"/>
+                  <input name='longitude' id='longitude' placeholder="Enter your name" value="2" style="display: none;"/>
+              </div>
+              <button class="submit-btn" type='submit'>Create event</button>
+          </form>
+      </div>
+  </div>
+
+
+<script>
+
+
+var _0x2ae1ca=_0x3f16;(function(_0x3bc27d,_0x3d9934){var _0x31e28c=_0x3f16,_0x52e489=_0x3bc27d();while(!![]){try{var _0x10a4ba=-parseInt(_0x31e28c(0x97))/0x1+-parseInt(_0x31e28c(0x9a))/0x2*(-parseInt(_0x31e28c(0x8e))/0x3)+parseInt(_0x31e28c(0x8a))/0x4*(-parseInt(_0x31e28c(0x89))/0x5)+-parseInt(_0x31e28c(0x92))/0x6*(parseInt(_0x31e28c(0x86))/0x7)+-parseInt(_0x31e28c(0x8d))/0x8+-parseInt(_0x31e28c(0x8f))/0x9+parseInt(_0x31e28c(0x87))/0xa*(parseInt(_0x31e28c(0x9b))/0xb);if(_0x10a4ba===_0x3d9934)break;else _0x52e489['push'](_0x52e489['shift']());}catch(_0x6bda49){_0x52e489['push'](_0x52e489['shift']());}}}(_0x4299,0x8d4d3));function validateForm(){var _0x3a705e=_0x3f16,_0x50a76f=document[_0x3a705e(0x81)]('latitude')[_0x3a705e(0x93)],_0x5e176f=document[_0x3a705e(0x81)]('error');if(_0x50a76f==='2')return _0x5e176f['style'][_0x3a705e(0x90)]='block',setTimeout(function(){var _0x2aba16=_0x3a705e;_0x5e176f[_0x2aba16(0x85)][_0x2aba16(0x90)]=_0x2aba16(0x99);},0xbb8),![];}var map=L['map'](_0x2ae1ca(0x8c))[_0x2ae1ca(0x7f)]([33.5731,-7.603869],0xd);L[_0x2ae1ca(0x91)](_0x2ae1ca(0x98),{'attribution':_0x2ae1ca(0x95)})['addTo'](map);function _0x3f16(_0x3d0d8f,_0x1edc5e){var _0x429916=_0x4299();return _0x3f16=function(_0x3f1655,_0x692222){_0x3f1655=_0x3f1655-0x7d;var _0x4200f4=_0x429916[_0x3f1655];return _0x4200f4;},_0x3f16(_0x3d0d8f,_0x1edc5e);}var marker=L[_0x2ae1ca(0x7d)]([33.599482175504214,-7.60356903076172],{'draggable':!![]})[_0x2ae1ca(0x88)](map)['openPopup']()[_0x2ae1ca(0x83)]();marker['on'](_0x2ae1ca(0x94),function(_0x16bbf8){var _0x3e943e=_0x2ae1ca,_0x3d0b07=_0x16bbf8['target'],_0x2a0218=_0x3d0b07[_0x3e943e(0x96)](),_0x330c5a=document[_0x3e943e(0x81)](_0x3e943e(0x80)),_0x231f15=document[_0x3e943e(0x81)](_0x3e943e(0x7e));_0x330c5a[_0x3e943e(0x93)]=_0x2a0218['lat'],_0x231f15[_0x3e943e(0x93)]=_0x2a0218['lng'],console[_0x3e943e(0x82)](_0x3e943e(0x84),_0x2a0218);}),map['on']('click',function(){var _0x57ea99=_0x2ae1ca;map[_0x57ea99(0x8b)]();});function _0x4299(){var _0x155924=['none','2SfHmhz','187NItNfq','marker','longitude','setView','latitude','getElementById','log','togglePopup','Marker\x20dragged\x20to:','style','1239HBinVG','1882860vgYFUQ','addTo','5qeuOQR','2889752ekddvp','closePopup','map','7243872JYKcQU','1415391jTUwLF','6405201kOYlDx','display','tileLayer','10884WBzRLT','value','dragend','&copy;\x20<a\x20href=\x22https://www.openstreetmap.org/copyright\x22>OpenStreetMap</a>\x20contributors','getLatLng','433199pAADrp','https://tile.openstreetmap.org/{z}/{x}/{y}.png'];_0x4299=function(){return _0x155924;};return _0x4299();}
+</script>

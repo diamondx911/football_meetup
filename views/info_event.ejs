@@ -1,0 +1,100 @@
+
+
+    <%  const latitude = 33.57737116792887;  %>
+    <% const longitude = -7.63227939605713;  %>
+    <% const date = new Date(event.dates[0].date);%>
+    <% const formattedDate = date.toLocaleDateString(); %>
+    <% const event_organizer = JSON.stringify(user.email) %>
+<%      const current_user = JSON.stringify(event.organizer.email) %>
+
+<div class="wrapper-success">
+    
+        <div><h2 class="title">What you need to know about the event !</h2></div>
+        The game will be held around : <%=  %><br>
+        <div class="success-map">
+            <div class="success-map-container" id="map" style="width: 100%; position: relative;"></div>
+        </div>
+        <div class="vitals">
+            <div class="vitals-detailsInfo">
+                <h6 class="vitals-title">Organizer</h6>
+                <div class="vitals-data"><%= event.organizer.name %></div>
+            </div>
+            <div class="vitals-detailsInfo">
+                <h6 class="vitals-title">Organizer E-mail</h6>
+                <div class="vitals-data"><%= event.organizer.email %></div>
+            </div>
+            <div class="vitals-detailsInfo">
+                <h6 class="vitals-title">Date and Time</h6>
+                <div class="vitals-data"><%= formattedDate %> at <%= event.dates[0].time %></div>
+            </div>
+            <div class="vitals-detailsInfo">
+                <h6 class="vitals-title">Player needed and gathered</h6>
+                <div class="vitals-data">
+                    <%  if (event.invitedNames) {%>
+                        <%    for (let j = 0; j < event.invitedNames.length; j++) {%>
+                              <img class="icon" src="/player_full.svg" style="width:20px;height:20px;"/>
+                          <%  }%>
+                          <%  for (let j = 0; j < (event.numberPlayer - event.invitedNames.length); j++) {%>
+                             <img class="icon" src="/player_full.svg" style="width:20px;height:20px;opacity:0.5;"/>
+                          <%   }%>
+                          <% }else{%>
+                            <%   for (let j = 0; j < (event.numberPlayer); j++) {%>
+                          <img class="icon" src="/player_full.svg" style="width:20px;height:20px;opacity:0.5;" />
+                          <%  }%>
+                          <% }%>
+                            </div>
+            </div>
+        </div>
+        <button onclick="openGoogleMaps()">Open Google Maps</button>
+        <%  if (event_organizer === current_user) { %>
+            <% console.log(event_organizer)  %>
+             <form action="/cancel_create" method="POST">
+                 <button name="event" type="submit" value='<%= event._id %>'>cancel event</button>
+                 </form>
+        <% } else {%>
+            <form action="/cancel_join" method="POST">
+                <button name="event" type="submit" value='<%= event._id %>'>cancel going</button>
+                </form>
+            <%}%>
+</div>
+
+
+
+
+
+
+<script>
+
+const event_latitude = <%- JSON.stringify(event.coordinates.latitude) %>;
+const event_longitude = <%- JSON.stringify(event.coordinates.longitude) %>;
+var map = L.map('map').setView([event_latitude, event_longitude], 15);
+
+var icon = new L.Icon({
+  iconUrl: 'football.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 20]
+});
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+
+var marker = L.marker([event_latitude,event_longitude],{
+    draggable: false
+}).addTo(map)
+
+
+function openGoogleMaps() {
+    var userAgent = navigator.userAgent.toLowerCase();
+            var isMobile = /iphone|ipod|ipad|android|blackberry|windows phone/i.test(userAgent);
+
+            if (isMobile) {
+                var url = "geo:" + event_latitude + "," + event_longitude;
+                window.location.href = url;
+            } else {
+                var url = "https://maps.google.com/maps?q=" + event_latitude + "," + event_longitude;
+                window.open(url);
+            }
+        }
+</script>

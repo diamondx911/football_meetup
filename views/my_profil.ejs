@@ -1,0 +1,60 @@
+
+
+<div class="wrapper-info">
+
+<h1>Games you organized:</h1>
+<ul class="profil-info-events">
+    <div class="lab">
+            <h6 class="vitals-title">organizer</h6>
+    </div>
+
+
+
+  <% for (let i = 0; i < organizerEvents.length; i++) { %>
+    <div class="single-event">
+           <li><%= organizerEvents[i].organizer.name %></li>
+                <% const date = new Date(organizerEvents[i].dates[0].date);%>
+                <% const formattedDate = date.toLocaleDateString();%>
+            <li ><%= formattedDate %> at <%= organizerEvents[i].dates[0].time %></li>
+            <li>
+                <form action="/info_event" method="POST">
+                    <button name="test" type="submit" value='<%= organizerEvents[i]._id %>'>more info</button>
+                </form>
+            </li>
+    </div>
+
+    
+  <% } %>
+</ul>
+
+</div>
+
+<%  if(invitedEvents.length > 0)  {   %>
+
+<div class="wrapper-info">
+<h1>Games you joined:</h1>
+<ul class="profil-info-events">
+    <div class="lab">
+        <h6 class="vitals-title">organizer</h6>
+</div>
+
+    <% for (let i = 0; i < invitedEvents.length; i++) { %>
+      <div class="single-event">
+             <li><%= invitedEvents[i].organizer.name %></li>
+                  <% const date = new Date(invitedEvents[i].dates[0].date);%>
+                  <% const formattedDate = date.toLocaleDateString();%>
+              <li ><%= formattedDate %> at <%= invitedEvents[i].dates[0].time %></li>
+              <li>
+                  <form action="/info_event" method="POST">
+                      <button name="test" type="submit" value='<%= invitedEvents[i]._id %>'>more info</button>
+                  </form>
+              </li>
+      </div>
+  
+      
+    <% } %>
+  </ul>
+
+</div>
+
+<%}%>
