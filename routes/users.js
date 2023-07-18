@@ -184,33 +184,5 @@ router.get('/logout', (req,res) => {
 });
 
 
-router.get('/generate-fake-data', (req, res) => {
-    console.log("starting");
-    for (var i = 0; i < 10; i++) {
-        function getRandom(min, max) {
-            return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-        }
-        function getRandomLatitude(min, max, decimalPlaces) {
-            const random = Math.random() * (max - min) + min;
-            return Number(random.toFixed(decimalPlaces));
-        }
-        const newApartment = new Apartment();
-        newApartment.numberOfRooms = 2;
-        newApartment.numberOfBathrooms = 2;
-        newApartment.isForRent = true;
-        newApartment.price = getRandom(3000, 9000) ;
-        const decimalPlaces = 14;
-        newApartment.coordinates = {
-            latitude: getRandomLatitude(33.58803875113305, 33.58642998348364, decimalPlaces),
-            longitude: getRandomLatitude(-7.617489695549012, -7.643340826034547, decimalPlaces)
-        };
-        newApartment.save()
-            .then(savedApartment => {
-                console.log('Apartment saved successfully:', savedApartment);
-            })
-            .catch(error => {
-                console.error('Error saving apartment:', error);
-            });
-}});
 
 module.exports = router;
